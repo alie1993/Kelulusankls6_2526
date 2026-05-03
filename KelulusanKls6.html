@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Selamat Lulus! - SDN Bidaracina 01 Pagi</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #FDF5E6 0%, #FFF0F5 35%, #E0F7FA 100%);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body::before {
+            content: "🌸✨🎓👩‍🎓🧑‍🎓";
+            position: absolute;
+            font-size: 140px;
+            opacity: 0.08;
+            bottom: 10px;
+            right: 10px;
+            pointer-events: none;
+            white-space: pre;
+            transform: rotate(-5deg);
+        }
+
+        /* Kartu utama */
+        .card {
+            max-width: 650px;
+            width: 100%;
+            background: rgba(255, 255, 250, 0.96);
+            backdrop-filter: blur(2px);
+            border-radius: 56px;
+            box-shadow: 0 35px 55px rgba(0, 0, 0, 0.1), 0 0 0 8px rgba(250, 200, 180, 0.4);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 42px 70px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Header */
+        .hero {
+            background: linear-gradient(115deg, #FFDAB9, #FFE4E1, #C9E4DE);
+            padding: 28px 20px 20px;
+            text-align: center;
+            color: #3E5A5A;
+            border-bottom: 5px solid #FFB7B2;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .school-logo {
+            width: 105px;
+            height: auto;
+            background: rgba(255, 250, 240, 0.9);
+            border-radius: 35px;
+            padding: 8px 12px;
+            box-shadow: 0 14px 22px -8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            object-fit: contain;
+        }
+
+        .school-logo:hover {
+            transform: scale(1.05) rotate(1deg);
+        }
+
+        .hero h1 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            font-size: 1.9rem;
+            letter-spacing: 1px;
+            color: #4C6A6A;
+            text-align: center;
+            margin-top: 8px;
+            text-shadow: 2px 2px 0 rgba(255, 235, 200, 0.8);
+        }
+
+        .hero .sub {
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: rgba(255, 250, 210, 0.7);
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 60px;
+            margin-top: 8px;
+            color: #557C7C;
+        }
+
+        .tahun-ajaran {
+            background: #FADADD;
+            color: #A1665F;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 22px;
+            border-radius: 40px;
+            margin: 14px 0 8px;
+            font-size: 0.9rem;
+            box-shadow: inset 0 -1px 0 #FFBDB0;
+        }
+
+        /* Konten */
+        .content-padding {
+            padding: 36px 30px 42px;
+        }
+
+        /* Form login */
+        .form-modern {
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+
+        .input-field label {
+            font-weight: 700;
+            color: #527A7A;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #FFF8F0;
+            padding: 6px 18px;
+            border-radius: 50px;
+            width: fit-content;
+            border: 1.5px solid #FFDFC9;
+        }
+
+        .input-field label span {
+            font-size: 1.3rem;
+        }
+
+        /* Input nama dengan auto caps */
+        #studentName {
+            text-transform: uppercase;
+        }
+
+        /* Password wrapper */
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-wrapper input {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border: 2px solid #FFE0D0;
+            border-radius: 60px;
+            font-size: 1rem;
+            background: #FFFFF7;
+            transition: all 0.2s;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .password-wrapper input:focus {
+            border-color: #F69C7A;
+            box-shadow: 0 0 0 4px rgba(246, 156, 122, 0.2);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.3rem;
+            user-select: none;
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #A57C6C;
+            transition: color 0.2s;
+        }
+
+        .toggle-password:hover {
+            color: #E28464;
+        }
+
+        /* Input biasa (nama) */
+        .input-field > input:not(.password-wrapper input) {
+            padding: 14px 20px;
+            border: 2px solid #FFE0D0;
+            border-radius: 60px;
+            font-size: 1rem;
+            background: #FFFFF7;
+            transition: all 0.2s;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+        }
+
+        .input-field > input:focus {
+            border-color: #F69C7A;
+            box-shadow: 0 0 0 4px rgba(246, 156, 122, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(105deg, #FBC8B5, #FAB49A);
+            border: none;
+            padding: 15px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #4C6A6A;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 6px;
+            box-shadow: 0 6px 0 #CF9F86;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #CF9F86;
+        }
+
+        .error-toast {
+            background: #FFEFEF;
+            border-left: 7px solid #F97E6A;
+            padding: 12px 18px;
+            border-radius: 40px;
+            color: #B85C4A;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Dashboard kelulusan */
+        .dashboard-card {
+            text-align: center;
+            animation: softRise 0.5s ease;
+        }
+
+        @keyframes softRise {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .medali {
+            background: #FFF0E5;
+            border-radius: 100px;
+            padding: 8px 22px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            color: #C26B52;
+            border: 2px solid #FFD3B5;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .student-name-big {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.1rem;
+            font-weight: 900;
+            background: linear-gradient(125deg, #D97A5A, #F4A27A, #FAC05E);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 12px 0;
+            word-break: break-word;
+        }
+
+        .graduation-box {
+            background: #FFFDF7;
+            border-radius: 48px;
+            padding: 28px 20px;
+            margin: 20px 0;
+            border: 1px solid #FFE2CE;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.05);
+        }
+
+        .graduation-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #E28464;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #557C7C;
+            margin-top: 18px;
+            font-weight: 500;
+            border-top: 2px dotted #FFD6C0;
+            padding-top: 15px;
+        }
+
+        .btn-secondary {
+            background: #B0C4B1;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 60px;
+            font-weight: bold;
+            color: #3E5A5A;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            box-shadow: 0 4px 0 #7F9A7E;
+        }
+
+        .btn-secondary:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #7F9A7E;
+        }
+
+        .footer-custom {
+            margin-top: 28px;
+            font-size: 0.7rem;
+            color: #94A7A7;
+            background: #FEF5EA;
+            border-radius: 60px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .confetti-icon {
+            font-size: 2.2rem;
+            display: inline-block;
+            animation: gentleFloat 1.6s infinite;
+        }
+
+        @keyframes gentleFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-7px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Copyright di pojok kanan bawah */
+        .copyright {
+            position: fixed;
+            bottom: 12px;
+            right: 16px;
+            font-size: 0.7rem;
+            font-family: 'Poppins', sans-serif;
+            color: #8FAAAA;
+            background: rgba(255, 250, 240, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 40px;
+            z-index: 999;
+            pointer-events: none;
+            letter-spacing: 0.3px;
+            font-weight: 500;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 550px) {
+            .student-name-big {
+                font-size: 1.6rem;
+            }
+            .content-padding {
+                padding: 26px 20px;
+            }
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .school-logo {
+                width: 80px;
+            }
+            .copyright {
+                font-size: 0.6rem;
+                bottom: 8px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="hero">
+        <div class="logo-container">
+            <img class="school-logo" src="https://iili.io/BLtp799.jpg" alt="Logo SDN Bidaracina 01 Pagi" onerror="this.onerror=null; this.src='https://placehold.co/200x200?text=SDN+Bidaracina';">
+        </div>
+        <h1>SDN BIDARACINA 01 PAGI</h1>
+        <div class="sub">Pengumuman Kelulusan Kelas 6</div>
+        <div class="tahun-ajaran">
+            🎓 Tahun Pelajaran 2025 / 2026 🎓
+        </div>
+    </div>
+
+    <div class="content-padding">
+        <!-- Login area -->
+        <div id="loginArea">
+            <form id="loginForm" class="form-modern">
+                <div class="input-field">
+                    <label><span>🧑‍🎓</span> Nama Lengkap Siswa</label>
+                    <input type="text" id="studentName" placeholder="Contoh: ACHMAD NAUFAL DAMPING" autocomplete="off" required>
+                </div>
+                <div class="input-field">
+                    <label><span>🔢</span> NISN (Password)</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="studentNISN" placeholder="Masukkan NISN" autocomplete="off" required>
+                        <span class="toggle-password" id="toggleNisn" role="button" aria-label="Tampilkan/sembunyikan NISN">👁️</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">✨ MASUK & CEK KELULUSAN ✨</button>
+                <div id="loginErrorMessage" class="error-toast" style="display: none;"></div>
+            </form>
+            <div class="footer-custom">
+                🌸 Masukkan nama sesuai daftar dan NISN untuk melihat pengumuman resmi kelulusan.
+            </div>
+        </div>
+
+        <!-- Dashboard kelulusan (hidden awal) -->
+        <div id="dashboardArea" style="display: none;">
+            <div class="dashboard-card">
+                <div class="medali">
+                    🎖️ RESMI DINYATAKAN LULUS 🎖️
+                </div>
+                <div class="confetti-icon">🎊🏅🎓</div>
+                <div class="student-name-big" id="greetingName"></div>
+                <div class="graduation-box">
+                    <h3>📜 SURAT KEPUTUSAN</h3>
+                    <p style="margin: 12px 0;">Dengan memohon rahmat Tuhan Yang Maha Esa, <br>
+                    <strong id="fullNameDisplay" style="font-size:1.2rem;"></strong> <br>
+                    dinyatakan <span style="color:#E28464; font-weight:800;">LULUS</span> dari <br>
+                    <strong>SD Negeri Bidaracina 01 Pagi</strong><br>
+                    Tahun Pelajaran <strong>2025/2026</strong>.</p>
+                    <p>🥳 Selamat! Atas perjuangan dan prestasi yang telah diraih, kini saatnya melangkah ke jenjang pendidikan berikutnya. 🥳</p>
+                    <div class="quote">✨ "Teruslah bermimpi, belajar, dan berkarya. Masa depan gemilang menantimu!" ✨</div>
+                </div>
+                <button id="logoutButton" class="btn-secondary">🚪 LOGOUT & KEMBALI</button>
+            </div>
+            <div class="footer-custom">
+                💐 Hormat kami, segenap guru dan staf SDN Bidaracina 01 Pagi. Tetap banggakan almamater!
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Elemen copyright di pojok kanan bawah -->
+<div class="copyright">
+    © Ali Maksum
+</div>
+
+<script>
+    // DATA SISWA LENGKAP (nama dan NISN)
+    const studentsList = [
+        { nama: "ACHMAD NAUFAL DAMPING", nisn: "138784511" },
+        { nama: "AINA TALITHA ZAHRAN", nisn: "3139131736" },
+        { nama: "ALBI BALIN ALFARUQ", nisn: "132461636" },
+        { nama: "ALZENA SHAVA AQEELA", nisn: "3149644049" },
+        { nama: "ARSYAFIN HAIDIR TAMAM", nisn: "138706873" },
+        { nama: "AZALEA ADIBA PASHA", nisn: "3139627431" },
+        { nama: "DAFFA MUHARAM AR NAWAMA", nisn: "3133490835" },
+        { nama: "GIO AS SYAWAL", nisn: "137360206" },
+        { nama: "IRENE ZULAIKHA", nisn: "145097281" },
+        { nama: "KANAYA KIRANA", nisn: "3130219782" },
+        { nama: "MAUL RADIANSYAH WALUYO", nisn: "3136271033" },
+        { nama: "MUHAMAD AIRUL", nisn: "135725888" },
+        { nama: "MUHAMMAD AZHAM FADILLAH", nisn: "137672932" },
+        { nama: "MUHAMMAD AZRIEL IKHSAN", nisn: "3137081045" },
+        { nama: "MUHAMMAD HABIBI", nisn: "3133267442" },
+        { nama: "MUHAMMAD HAFIDZH ABDILAH", nisn: "134913003" },
+        { nama: "MUHAMMAD HAIKAL", nisn: "131414570" },
+        { nama: "MUHAMMAD RANGGA WARSITA", nisn: "131762038" },
+        { nama: "MUHAMMAD RIDWAN", nisn: "3134425608" },
+        { nama: "MUHAMMAD SYAIHAN", nisn: "134369333" },
+        { nama: "MUHAMMAD YAHYA ALIRIDHO", nisn: "132115104" },
+        { nama: "NICKY NURLAIL", nisn: "3139532731" },
+        { nama: "PUTRI ALIFKA", nisn: "3130284468" },
+        { nama: "RESTI NUR LISDIAWATI", nisn: "133281513" },
+        { nama: "RIFQI SAHAD ABDULLAH", nisn: "137254028" },
+        { nama: "SERLY HANDAYANI", nisn: "3135710158" },
+        { nama: "SHEZA AZRA LUSHYA", nisn: "138173850" },
+        { nama: "SYIRA NUR AZIZAH", nisn: "3138067414" },
+        { nama: "THORIQ DWI PRASETYA", nisn: "135814611" },
+        { nama: "WINDA AMALIA ZAHRANI", nisn: "3135273421" },
+        { nama: "ZASKIA ABRINA", nisn: "134837878" }
+    ];
+
+    // Map validasi
+    const validStudentMap = new Map();
+    studentsList.forEach(siswa => {
+        validStudentMap.set(siswa.nama, siswa.nisn);
+    });
+
+    // DOM elements
+    const loginArea = document.getElementById('loginArea');
+    const dashboardArea = document.getElementById('dashboardArea');
+    const loginForm = document.getElementById('loginForm');
+    const errorMsgDiv = document.getElementById('loginErrorMessage');
+    const greetingNameSpan = document.getElementById('greetingName');
+    const fullNameDisplaySpan = document.getElementById('fullNameDisplay');
+    const logoutBtn = document.getElementById('logoutButton');
+    const studentNameInput = document.getElementById('studentName');
+    const passwordInput = document.getElementById('studentNISN');
+    const toggleBtn = document.getElementById('toggleNisn');
+
+    // Auto Caps Lock untuk input nama
+    studentNameInput.addEventListener('input', function(e) {
+        this.value = this.value.toUpperCase();
+    });
+
+    // Toggle password visibility
+    toggleBtn.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        if (type === 'text') {
+            toggleBtn.textContent = '🙈';
+        } else {
+            toggleBtn.textContent = '👁️';
+        }
+    });
+
+    function authenticateStudent(inputNama, inputNisn) {
+        const trimmedNama = inputNama.trim();
+        const trimmedNisn = inputNisn.trim();
+        if (validStudentMap.has(trimmedNama)) {
+            const correctNisn = validStudentMap.get(trimmedNama);
+            if (correctNisn === trimmedNisn) {
+                return { success: true, nama: trimmedNama };
+            }
+        }
+        return { success: false, nama: null };
+    }
+
+    function loadDashboard(namaSiswa) {
+        loginArea.style.display = 'none';
+        dashboardArea.style.display = 'block';
+        greetingNameSpan.innerText = namaSiswa;
+        fullNameDisplaySpan.innerText = namaSiswa;
+        sessionStorage.setItem('loggedStudentName', namaSiswa);
+    }
+
+    function logoutSystem() {
+        sessionStorage.removeItem('loggedStudentName');
+        loginArea.style.display = 'block';
+        dashboardArea.style.display = 'none';
+        studentNameInput.value = '';
+        passwordInput.value = '';
+        errorMsgDiv.style.display = 'none';
+        errorMsgDiv.innerText = '';
+        passwordInput.setAttribute('type', 'password');
+        toggleBtn.textContent = '👁️';
+    }
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nameVal = studentNameInput.value;
+        const nisnVal = passwordInput.value;
+        const result = authenticateStudent(nameVal, nisnVal);
+        if (result.success) {
+            errorMsgDiv.style.display = 'none';
+            loadDashboard(result.nama);
+        } else {
+            errorMsgDiv.innerText = '❌ Login gagal! Periksa kembali Nama dan NISN. Pastikan penulisan sesuai daftar resmi. ❌';
+            errorMsgDiv.style.display = 'block';
+            loginForm.style.animation = 'shake 0.25s ease-in-out';
+            setTimeout(() => { loginForm.style.animation = ''; }, 300);
+        }
+    });
+
+    if (logoutBtn) logoutBtn.addEventListener('click', logoutSystem);
+
+    function checkSession() {
+        const savedStudent = sessionStorage.getItem('loggedStudentName');
+        if (savedStudent && validStudentMap.has(savedStudent)) {
+            loginArea.style.display = 'none';
+            dashboardArea.style.display = 'block';
+            greetingNameSpan.innerText = savedStudent;
+            fullNameDisplaySpan.innerText = savedStudent;
+        } else {
+            loginArea.style.display = 'block';
+            dashboardArea.style.display = 'none';
+            if (savedStudent && !validStudentMap.has(savedStudent)) sessionStorage.removeItem('loggedStudentName');
+        }
+    }
+
+    // animasi shake
+    const styleShake = document.createElement('style');
+    styleShake.textContent = `@keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } 100% { transform: translateX(0); } }`;
+    document.head.appendChild(styleShake);
+
+    checkSession();
+</script>
+</body>
+</html>
